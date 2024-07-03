@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require('express-session');
+const bodyParser = require('body-parser');
+
 /**********env variables **********/
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -11,10 +14,12 @@ const util = require("util");
 
 
 dotenv.config();
-const { DB_USER, DB_PASSWORD, JWT_SECRET } = process.env;
+const { DB_USER, DB_PASSWORD, JWT_SECRET, SESSION_SECRET } = process.env;
 
 /*****************************/
 const app = express();
+
+
 
 const promisify = util.promisify;
 const promisdiedJWTsign = promisify(jwt.sign);
@@ -46,7 +51,15 @@ app.use(express.json());
 /*******to get the cookie in req.cookies**/
 app.use(cookieParser());
 
-
+/////////------config for express-session------//////
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(session({
+    secret: SESSION_SECRET, // replace with a strong secret key
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
 
 const UserRouter = require("./Routers/UserRouter");
 

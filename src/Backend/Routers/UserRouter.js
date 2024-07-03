@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 
-const { createUser, getAllUsers, findByEmail, validateUserLogin, logoutUser } = require("../Controllers/UserController");
+const { createUser, getAllUsers, findByEmail, validateUserLogin, logoutUser, sendOTPEmail, verifyUserOTP, validateSignUpInfo} = require("../Controllers/UserController");
 
 userRouter.route("/")
     .post(createUser)
@@ -15,5 +15,14 @@ userRouter.route("/login")
 
 userRouter.route("/logout/id/:id")
     .post(logoutUser);
+
+userRouter.route("/OTP/sendemail")
+    .post(sendOTPEmail);
+
+userRouter.route("/OTP/verify")
+    .post(verifyUserOTP);
+
+userRouter.route("/signup/validate")
+    .post(validateSignUpInfo);
    
 module.exports = userRouter;

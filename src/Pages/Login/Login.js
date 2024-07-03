@@ -32,7 +32,7 @@ function LoginPage() {
 
             setAlert({                                    
                 needAlert: true,
-                alertComponent: <AlertComponent heading={alertHeading} text={alertText} setAlert={setAlert} />
+                alertComponent: <AlertComponent heading={alertHeading} text={alertText} setAlert={setAlert} variant="danger" />
             });
         }
     }, [loginFail]);
