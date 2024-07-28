@@ -7,6 +7,7 @@ import AboutUs from './Pages/AboutUs/AboutUs';
 import LoginPage from './Pages/Login/Login';
 import SignUpPage from './Pages/SignUp/SignUp';
 import { createContext, useContext, useState, React, useEffect } from 'react';
+import Home_Admin_Page from './Pages/AdminDashboards/Home-Admin/Home-Admin';
 
 export const isLoggedInContext = createContext();
 
@@ -60,7 +61,8 @@ function App() {
             <Route path="/" element={<HomePage/>}></Route>
             <Route path="/aboutUs" element={<AboutUs/>}></Route>
             <Route path="/login" element={<LoginPage/>}></Route>
-            <Route path="/signUp" element={<SignUpPage/>}></Route>            
+            <Route path="/signUp" element={<SignUpPage/>}></Route>
+            <Route path="/home/admin" element={<Home_Admin_Page/>}></Route>            
           </Routes>
         </Router> 
       </isLoggedInContext.Provider>     

@@ -102,6 +102,7 @@ function handleImageClick(event){
                         cardTitle={member.name} 
                         cardText={member.role[0]} 
                         memberID={member.memberID}
+                        size="20rem"
                     />
                 </Col>
             ))}

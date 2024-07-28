@@ -4,6 +4,7 @@ import ButtonComponent from "../../Components/Button/Button";
 import FormFloatingComponent from "../../Components/FloatingLabel/FloatingLabel";
 import { useNavigate } from "react-router-dom";
 import AlertComponent from "../../Components/Alert/Alert";
+import CloseButtonComponent from "../../Components/CloseButton/CloseButton";
 
 function SignUpPage(){
 
@@ -247,17 +248,42 @@ function SignUpPage(){
                         zIndex: 10,
                         height: "50vh",
                         width: "20vw",
-                        paddingLeft: 50,
-                        paddingRight: 50,
-                        paddingBottom:20,                    
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                        paddingBottom:20,
+                        paddingTop: 10,                    
                         display: "flex",
                         flexDirection: 'column',
                         flexWrap: "wrap",
-                        justifyContent: 'space-evenly',
+                        justifyContent: 'space-between',
                         borderRadius: "20px",
-                        boxShadow: "0 20px 20px 0px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-                    }}> Please enter the OTP sent to your email address
-                       
+                        boxShadow: "0 20px 20px 0px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                        
+                    }}> 
+                    <div style={{
+                        display: "flex",
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        // padding: '15px'                
+                    }}>
+                        <CloseButtonComponent 
+                            onClick={()=>{
+                                setDisplayOTPBox(false);
+                        }}/>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            height: "80%",
+                            width: "100%",
+                          
+                        }}
+                    
+                    >
+                    Please enter the OTP sent to your email address                       
                        <FormFloatingComponent 
                         controlId="OTP"
                         label="Enter the OTP"
@@ -266,9 +292,18 @@ function SignUpPage(){
                         type="text"
                         ref={OTP}
                         />
-                        <ButtonComponent label="Submit" type="dark" size="sm" onClick={handleOTPSubmit}/>
+                        <ButtonComponent label="Submit" type="dark" size="lg" onClick={handleOTPSubmit}/>
+
+
+
+
+                    </div>
+                    
             
                     </div> : null}
+
+                                        
+                    
 
                     {alert.needAlert || otpEmailSent? 
                 <div 

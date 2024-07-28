@@ -63,9 +63,10 @@ const validateSignUpInput = function(elementModel){
 }
 
 
-const sendEmail = function (generatedOTP){
+const sendEmail = function (OTPGenerator){
     return async function (req, res) {
         try{
+            generatedOTP = OTPGenerator();
             
             req.session.generatedOTP = generatedOTP;
                       

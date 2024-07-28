@@ -2,13 +2,11 @@ import NavBarComponent from "../../Components/Navbar/Navbar";
 import CarouselComponent from "../../Components/SlidesCarousel/Carousel";
 import "./Home.css"
 import { useState, useEffect } from "react";
-
-// require("dotenv").config({ path: '../../../src/.env' });
-// const aws = require("aws-sdk");
-
 import aws from "aws-sdk";
-
-
+import useContextMenu from "../../CustomHooks/useContextMenuHook/useContextMenuHook";
+import { ContextMenu } from "../../Styles/RightClickStyles/RightClickStyles";
+import { useNavigate } from "react-router-dom";
+import Home_Admin_Page from "../AdminDashboards/Home-Admin/Home-Admin";
 
 aws.config.update({
     secretAccessKey: process.env.REACT_APP_ACCESS_SECRET,
@@ -19,9 +17,6 @@ aws.config.update({
 
 const BUCKET_NAME = process.env.REACT_APP_BUCKET_NAME;
 const s3 = new aws.S3();
-
-
-
 const section = "Home_Page";
 
 async function importImages(){
@@ -50,10 +45,19 @@ async function importImages(){
 
 
     return picturesURLsArray;  
-}  
+} 
+
+
       
 
 function HomePage(){
+
+    const navigate = useNavigate();
+    function navigateToAdminDashboard(e){
+        navigate("/home/admin");    
+    }
+
+    const { clicked, setClicked, points, setPoints } = useContextMenu();
     
     const [imagesArray, setImagesArray] = useState([]);
     
@@ -67,9 +71,26 @@ function HomePage(){
 
     
     return (
-        <div className="Home">
+        <div 
+            className="Home"
+            onContextMenu={(e) => {
+                e.preventDefault();
+                setClicked(true);
+                setPoints({
+                  x: e.pageX,
+                  y: e.pageY,
+                });
+            }}
+        >
             
             <CarouselComponent images={imagesArray} time="2"/>
+            {clicked && (
+                <ContextMenu top={points.y} left={points.x}>
+                    <ul>
+                        <li onClick={navigateToAdminDashboard}>Go to Admin Dashboard</li>
+                    </ul>
+                </ContextMenu>
+            )}
         </div>
     )
 }
